@@ -25,19 +25,24 @@ def myAtoi(str_var):
     if len(str_var) == 0:
         return 0
     str_striped = str_var.lower().split()
+    if len(str_striped) == 0:
+        return 0
     first_element = str_striped[0]
     # check if first index is either + or -
     if first_element[0] == "-" or first_element[0] == "+":
         # check if all elements are digits up until the last number
         alpha_index = 0
-        while (alpha_index + 1 < len(first_element)) and first_element[1+alpha_index].isnumeric():
+        while (alpha_index + 1 < len(first_element)) and first_element[1 + alpha_index].isnumeric():
             alpha_index = alpha_index + 1
-        magic_number = int(first_element[0:alpha_index])
-        if magic_number > 2147483647:
-            return 2147483647
-        if magic_number < -2147483648:
-            return -2147483648
-        return magic_number
+        if alpha_index >= 1:
+            magic_number = int(first_element[0:alpha_index + 1])
+            if magic_number > 2147483647:
+                return 2147483647
+            if magic_number < -2147483648:
+                return -2147483648
+            return magic_number
+        else:
+            return 0
     else:
         # check if all elements are digits
         alpha_index = 0
@@ -71,3 +76,4 @@ if __name__ == '__main__':
     answer4 = myAtoi(str4)
     str5 = "-9128347.2332"
     answer5 = myAtoi(str5)
+    print(answer5)
